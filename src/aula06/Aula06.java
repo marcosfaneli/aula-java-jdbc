@@ -18,21 +18,16 @@ public class Aula06 {
 
     public static void main(String[] args) {
 
-        Carro uno = new Carro();
-        uno.setModelo("Uno Mille");
-        uno.setMarca(Marcas.Fiat);
-        uno.setCor("Verde Escuro");
-        uno.setAnoFabricacao(1995);
-        uno.setValor(1500.55);
-        uno.setPlaca("GLI2426");
+        Conexao c = new Conexao();
+        c.conectar();
         
-        Conexao conexao = new Conexao();
-        conexao.conectar();
+        CarroDao dao = new CarroDao(c);
         
-        CarroDao dao = new CarroDao(conexao);
-        dao.inserir(uno);
+        Carro uno = dao.ler(999);
         
-        conexao.fechar();
+        System.out.println(uno.getPlaca());
+        
+        c.fechar();
         
     }
     
