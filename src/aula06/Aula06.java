@@ -23,9 +23,18 @@ public class Aula06 {
         
         CarroDao dao = new CarroDao(c);
         
-        Carro uno = dao.ler(999);
+        Carro uno = dao.ler(2);
         
-        System.out.println(uno.getPlaca());
+        System.out.println("Placa: " + uno.getPlaca());
+        System.out.println("Modelo: " + uno.getModelo());
+        System.out.println("Marca: " + uno.getMarca());
+        System.out.println("Valor: R$ " + uno.getValor());
+        
+        uno.setValor(30000.00);
+        
+        dao.atualizar(uno, 2);
+        
+        System.out.println("Valor atualizado: R$ "+uno.getValor());
         
         c.fechar();
         

@@ -16,11 +16,32 @@ import java.sql.ResultSet;
 public class CarroDao {
 
     Conexao conexao;
-
+    
     public CarroDao(Conexao conexao) {
         this.conexao = conexao;
     }
-
+    
+    public void atualizar(Carro carro, int id){
+        String sql = "update carros set modelo = ?, marca = ?,"
+                + "placa = ?, cor = ?, ano_fabricacao = ?,"
+                + "valor = ? where id = ?";
+        
+        try{
+            PreparedStatement pst = conexao.getConexao().prepareStatement(sql);
+            pst.setString(1, carro.getModelo());
+            pst.setString(2, carro.getMarca().toString());
+            pst.setString(3, carro.getPlaca());
+            pst.setString(4, carro.getCor());
+            pst.setInt(5, carro.getAnoFabricacao());
+            pst.setDouble(6, carro.getValor());
+            pst.setInt(7, id);
+            
+            pst.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("Não foi possível atualizar");
+        }
+    }
+    
     public Carro ler(int id) {
         Carro carro = new Carro();
 
