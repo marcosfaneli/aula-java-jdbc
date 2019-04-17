@@ -8,6 +8,8 @@ package aula06.carro;
 import aula06.db.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,6 +21,48 @@ public class CarroDao {
     
     public CarroDao(Conexao conexao) {
         this.conexao = conexao;
+    }
+    
+    public List<Carro> listar(){
+        List<Carro> lista = new ArrayList();
+        
+        String sql = "select * from carros";
+        
+        try{
+            PreparedStatement pst = conexao.getConexao().prepareStatement(sql);
+            ResultSet resultado = pst.executeQuery();
+            
+            while(resultado.next()){
+                Carro linha = new Carro();
+                linha.setId(resultado.getInt("id"));
+                linha.setModelo(resultado.getString("modelo"));
+                linha.setCor(resultado.getString("cor"));
+                linha.setPlaca(resultado.getString("placa"));
+                linha.setValor(resultado.getDouble("valor"));
+                linha.setAnoFabricacao(resultado.getInt("ano_fabricacao"));
+                switch (resultado.getString("marca")) {
+                    case "Fiat":
+                        linha.setMarca(Marcas.Fiat);
+                        break;
+                    case "Volskwagem":
+                        linha.setMarca(Marcas.Volskwagem);
+                        break;
+                    case "Ford":
+                        linha.setMarca(Marcas.Ford);
+                        break;
+                    default:
+                        linha.setMarca(Marcas.Chevrolet);
+                }
+                lista.add(linha);
+            }
+            resultado.close();
+            pst.close();
+            
+        }catch(Exception ex){
+            System.out.println("Não foi possíve listar os carros");
+        }
+        
+        return lista;
     }
     
     public void atualizar(Carro carro, int id){

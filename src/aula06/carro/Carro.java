@@ -11,6 +11,7 @@ package aula06.carro;
  */
 public class Carro {
     
+    private int id;
     private String modelo;
     private Marcas marca;
     private String placa;
@@ -22,6 +23,14 @@ public class Carro {
         return modelo;
     }
 
+    public void setId(int id){
+        this.id = id;
+    }
+    
+    public int getId(){
+        return this.id;
+    }
+    
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
