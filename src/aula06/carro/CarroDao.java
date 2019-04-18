@@ -23,6 +23,19 @@ public class CarroDao {
         this.conexao = conexao;
     }
     
+    public void remover(int id){
+        String sql = "delete from carros where id = ?";
+        try{
+            PreparedStatement cursor = conexao.getConexao().prepareStatement(sql);
+            cursor.setInt(1, id);
+            cursor.executeUpdate();
+            cursor.close();
+            
+        }catch(Exception ex){
+            System.out.println("Não foi possível remover o registro");
+        }
+    }
+    
     public List<Carro> listar(){
         List<Carro> lista = new ArrayList();
         
@@ -97,6 +110,7 @@ public class CarroDao {
 
             ResultSet rs = pst.executeQuery();
             if (rs.next() == true) {
+                carro.setId(rs.getInt("id"));
                 carro.setAnoFabricacao(rs.getInt("ano_fabricacao"));
                 carro.setCor(rs.getString("cor"));
                 carro.setModelo(rs.getString("modelo"));

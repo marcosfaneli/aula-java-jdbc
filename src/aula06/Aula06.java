@@ -23,6 +23,8 @@ public class Aula06 {
         conexao.conectar();
         
         CarroDao dao = new CarroDao(conexao);
+        //dao.remover(4);
+        // aqui é um comentário
         
         List<Carro> carros = dao.listar();
         
@@ -36,7 +38,7 @@ public class Aula06 {
             System.out.println("Cor: " + item.getCor());
             System.out.println("-----------------------------------");
         }
-                        
+                     
         conexao.fechar();
         
     }
